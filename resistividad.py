@@ -78,9 +78,26 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.btnCalcular.clicked.connect(self.txtArea.clear)
-        self.btnCalcular.clicked.connect(self.txtLongitud.clear)
+        self.btnCalcular.clicked.connect(self.calcularResistencia)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def calcularResistencia(self):
+        area = float(self.txtArea.text())
+        longitud = float(self.txtLongitud.text())
+        text = self.comboBox.currentText()
+        resistividad=0;
+        if text == "Hule":
+            resistividad=1e13
+        elif text == "Cobre":
+            resistividad=1.68e-8
+        elif text == "Germanio":
+            resistividad=4.6e-1
+        else:
+            resistividad=0
+        resistecia = (resistividad*longitud)/area
+        self.lcdNumber.display(resistecia)
+        print("calcularestencia")
+        print("end")
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
